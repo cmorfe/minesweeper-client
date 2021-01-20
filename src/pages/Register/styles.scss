@@ -1,0 +1,15 @@
+.register-page {
+    .form {
+        display: flex;
+        flex-direction: column;
+
+        .MuiTextField-root {
+            padding-bottom: 12px;
+        }
+    }
+
+    .buttons {
+        display: flex;
+        justify-content: space-between;
+    }
+}
