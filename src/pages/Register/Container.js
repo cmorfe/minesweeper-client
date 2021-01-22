@@ -34,6 +34,7 @@ const Container = ({ showSuccess, showError }) => {
             onGoToLogin();
         }
     };
+
     const onGoToLogin = () => history.push('/login');
 
     const fields = {

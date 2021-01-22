@@ -1,27 +1,41 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Switch, Link, Redirect } from "react-router-dom";
-import { Typography } from "@material-ui/core";
-import { Alert } from "@material-ui/lab";
+import React, {useEffect, useState} from "react";
+import {BrowserRouter as Router, Link, Redirect, Route, Switch} from "react-router-dom";
+import {Typography} from "@material-ui/core";
+import {Alert} from "@material-ui/lab";
 
-import { Login, Register, Home } from "./pages";
+import {Home, Login, Register} from "./pages";
 
 import "./App.scss";
+import {useCookies} from "react-cookie";
 
 const App = () => {
   const [token, setToken] = useState(null);
   const [message, setMessage] = useState(null);
+  const [cookies, setCookie, removeCookie] = useCookies(['token']);
+
+  useEffect(() => {
+    setToken(cookies['token']);
+  }, []);
+
+  const changeToken = (value) => {
+    setToken(value);
+
+    if (value) {
+      setCookie('token', value);
+    } else {
+      removeCookie('token');
+    }
+  }
 
   const showSuccess = (msg) => {
-    setMessage({ type: "success", value: msg });
+    setMessage({type: "success", value: msg});
     setTimeout(() => setMessage(null), 5000);
   };
 
   const showError = (msg) => {
-    setMessage({ type: "error", value: msg });
+    setMessage({type: "error", value: msg});
     setTimeout(() => setMessage(null), 5000);
   };
-
-  const logout = () => setToken(null);
 
   return (
     <Router>
@@ -33,31 +47,42 @@ const App = () => {
           <div>
             <Link
               to="/login"
-              style={{ textDecoration: "none" }}
-              onClick={logout}
+              style={{textDecoration: "none"}}
+              onClick={() => changeToken(null)}
             >
               {token ? "Logout" : "Login"}
             </Link>
           </div>
         </div>
-        {message !== null ? (
-          <Alert severity={message.type}>{message.value}</Alert>
-        ) : (
-          <></>
-        )}
+        {
+          message !== null
+            ? <Alert severity={message.type}>{message.value}</Alert>
+            : <></>
+        }
         <Switch>
           <Route path="/login">
-            <Login {...{ setToken, showError }} />
+            {
+              token
+                ? <Redirect to={"/"}/>
+                : <Login {...{changeToken, showError}} />
+            }
           </Route>
           <Route path="/register">
-            <Register {...{ showSuccess, showError }} />
+            {
+              token
+                ? <Redirect to={"/"}/>
+                : <Register {...{showSuccess, showError}} />
+            }
           </Route>
           <Route exact path="/">
-            {!token ? (
-              <Redirect to="/login" />
-            ) : (
-              <Home {...{ token, showSuccess, showError }} />
-            )}
+            {
+              !token
+                ? <Redirect to="/login"/>
+                : <Home {...{token, showSuccess, showError}} />
+            }
+          </Route>
+          <Route path="*">
+            <Redirect to="/"/>
           </Route>
         </Switch>
       </div>

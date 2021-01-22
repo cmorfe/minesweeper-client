@@ -5,19 +5,19 @@ import Login from './Login';
 
 import './styles.scss';
 
-const Container = ({ setToken, showError }) => {
+const Container = ({ changeToken, showError }) => {
     const history = useHistory();
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const onUsernameChange = e => setUsername(e.target.value);
-    const onPasswordChange = e => setPassword(e.target.value);
+    const onUsernameChange = (e) => setUsername(e.target.value);
+    const onPasswordChange = (e) => setPassword(e.target.value);
 
     const onSubmit = async () => {
         const { token, errorMsg } = await login({ username, password });
         if (token) {
-            setToken(token);
+            changeToken(token);
             history.push('/');
         } else {
             showError(errorMsg);

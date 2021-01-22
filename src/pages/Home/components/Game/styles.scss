@@ -1,0 +1,12 @@
+.board {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .squareRow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
