@@ -59,32 +59,34 @@ const App = () => {
             ? <Alert severity={message.type}>{message.value}</Alert>
             : <></>
         }
-        <Switch>
-          <Route path="/login">
-            {
-              token
-                ? <Redirect to={"/"}/>
-                : <Login {...{changeToken, showError}} />
-            }
-          </Route>
-          <Route path="/register">
-            {
-              token
-                ? <Redirect to={"/"}/>
-                : <Register {...{showSuccess, showError}} />
-            }
-          </Route>
-          <Route exact path="/">
-            {
-              !token
-                ? <Redirect to="/login"/>
-                : <Home {...{token, showSuccess, showError}} />
-            }
-          </Route>
-          <Route path="*">
-            <Redirect to="/"/>
-          </Route>
-        </Switch>
+        <div className={'container'}>
+          <Switch>
+            <Route path="/login">
+              {
+                token
+                  ? <Redirect to={"/"}/>
+                  : <Login {...{changeToken, showError}} />
+              }
+            </Route>
+            <Route path="/register">
+              {
+                token
+                  ? <Redirect to={"/"}/>
+                  : <Register {...{showSuccess, showError}} />
+              }
+            </Route>
+            <Route exact path="/">
+              {
+                !token
+                  ? <Redirect to="/login"/>
+                  : <Home {...{token, showSuccess, showError}} />
+              }
+            </Route>
+            <Route path="*">
+              <Redirect to="/"/>
+            </Route>
+          </Switch>
+        </div>
       </div>
     </Router>
   );

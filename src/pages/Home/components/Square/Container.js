@@ -44,11 +44,7 @@ const Container = ({token, boardId, square, loadBoard, setSquare}) => {
     const {loadedSquare, errorMsg} = await markSquare({token, boardId, squareId: square.id});
 
     if (loadedSquare) {
-      if (loadedSquare.shouldReload) {
-        loadBoard();
-      } else {
         setSquare(loadedSquare);
-      }
     }
   }
 

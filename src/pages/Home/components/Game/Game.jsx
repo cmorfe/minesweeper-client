@@ -1,9 +1,13 @@
 import React from "react";
 import {Square} from '../'
+import {Button} from "@material-ui/core";
 
-const Game = ({token, board, time, loadBoard, message, setSquare}) => (
+const Game = ({token, board, time, loadBoard, message, setSquare, onBack}) => (
   <div className={'game'}>
     <div className={'information'}>
+      <Button onClick={onBack}>
+        Back
+      </Button>
       <div className={'message'}>{message}</div>
       <div className={'timer'}>
         {`Time: ${time}`}

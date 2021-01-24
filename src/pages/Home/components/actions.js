@@ -21,7 +21,18 @@ export const loadGame = ({token, boardId}) => {
       }
     })
     .then((response) => response.data)
-    .then((data) => ({board: serializeBoard(data)}))
+    .then((data) => ({loadedBoard: serializeBoard(data)}))
+    .catch((error) => ({errorMsg: error.toJSON().message}));
+};
+
+export const saveGame = ({token, boardId, time}) => {
+  return axios
+    .post(ROUTES.SAVE_GAME(boardId), {time}, {
+      headers: {
+        Authorization: token
+      }
+    })
+    .then(() => ({}))
     .catch((error) => ({errorMsg: error.toJSON().message}));
 };
 
@@ -39,7 +50,7 @@ export const getBoards = ({token}) => {
 
 export const markSquare = ({token, boardId, squareId}) => {
   return axios
-    .post(ROUTES.MARK_SQUARE(boardId, squareId), {},{
+    .post(ROUTES.MARK_SQUARE(boardId, squareId), {}, {
       headers: {
         Authorization: token
       }
@@ -51,7 +62,7 @@ export const markSquare = ({token, boardId, squareId}) => {
 
 export const openSquare = ({token, boardId, squareId}) => {
   return axios
-    .post(ROUTES.OPEN_SQUARE(boardId, squareId), {},{
+    .post(ROUTES.OPEN_SQUARE(boardId, squareId), {}, {
       headers: {
         Authorization: token
       }
