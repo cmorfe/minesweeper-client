@@ -13,13 +13,17 @@ const Container = ({token, boardId, square, loadBoard, setSquare}) => {
         return square.adjacents;
       }
     } else {
-      switch (square.mark) {
-        case 'FLAG':
-          return 'F';
-        case 'QUESTION':
-          return '?';
-        default:
-          return 'X';
+      if (square.mined && square.mark !== 'FLAG') {
+        return '*';
+      } else {
+        switch (square.mark) {
+          case 'FLAG':
+            return 'F';
+          case 'QUESTION':
+            return '?';
+          default:
+            return 'X';
+        }
       }
     }
   }

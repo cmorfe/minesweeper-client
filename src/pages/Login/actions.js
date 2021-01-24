@@ -8,5 +8,5 @@ export const login = ({ username, password }) => {
     .then((headers) => {
       return { token: headers.authorization };
     })
-    .catch((error) => ({ errorMsg: error.toJSON().message }));
+    .catch((error) => ({ errorMsg: 'Invalid credentials.' }));
 };

@@ -11,16 +11,39 @@ const Container = ({ showSuccess, showError }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [validation, setValidation] = useState('');
-    const [error, setError] = useState(false);
+    const [passwordConfirmationError, setPasswordConfirmationError] = useState(false);
+    const [usernameValidationError, setUsernameValidationError] = useState(false);
+    const [passwordValidationError, setPasswordValidationError] = useState(false);
 
     const onUsernameChange = (e) => setUsername(e.target.value);
     const onPasswordChange = (e) => setPassword(e.target.value);
     const onValidationChange = (e) => setValidation(e.target.value);
 
     const onSubmit = async () => {
+        let errors = false;
+
+        setPasswordConfirmationError(validation !== password);
+
         if (validation !== password) {
             showError('The passwords do no match');
-            setError(true);
+            errors = true;
+        }
+
+        setUsernameValidationError(username.length < 1);
+
+        if (username.length < 1) {
+            showError('Username field is required.');
+            errors = true;
+        }
+
+        setPasswordValidationError(password.length < 1);
+
+        if (password.length < 1) {
+            showError('Password field is required.');
+            errors = true;
+        }
+
+        if (errors) {
             return;
         }
 
@@ -41,20 +64,22 @@ const Container = ({ showSuccess, showError }) => {
         username: {
             value: username,
             label: 'Username',
-            onChange: onUsernameChange
+            onChange: onUsernameChange,
+            error: usernameValidationError
         },
         password: {
             type: 'password',
             value: password,
             label: 'Password',
-            onChange: onPasswordChange
+            onChange: onPasswordChange,
+            error: passwordValidationError
         },
         validation: {
             type: 'password',
             value: validation,
             label: 'Confirm Password',
             onChange: onValidationChange,
-            error
+            error: passwordConfirmationError
         },
     };
 
