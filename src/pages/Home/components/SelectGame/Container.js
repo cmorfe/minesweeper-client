@@ -61,14 +61,27 @@ const Container = ({token, setBoard, showSuccess, showError}) => {
       showError('Number of rows must be grater than 2.');
       return false;
     }
+
+    if (rows > 30) {
+      showError('Number of rows must be less than 30.');
+      return false;
+    }
+
     if (columns < 3) {
       showError('Number of columns must be grater than 2.');
       return false;
     }
+
+    if (columns > 20) {
+      showError('Number of columns must be grater than 2.');
+      return false;
+    }
+
     if (mines < 2) {
       showError('Number of mines must be at least 2.');
       return false;
     }
+
     if (mines >= rows * columns) {
       showError(`Number of mines must be at most ${rows * columns}.`);
       return false;
