@@ -56,7 +56,7 @@ const App = () => {
         </div>
         {
           message !== null
-            ? <Alert severity={message.type}>{message.value}</Alert>
+            ? <Alert className={'alert-message'} severity={message.type}>{message.value}</Alert>
             : <></>
         }
         <div className={'container'}>

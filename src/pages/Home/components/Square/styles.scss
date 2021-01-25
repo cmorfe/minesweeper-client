@@ -6,4 +6,51 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  background-color: #757575;
+  font-weight: bold;
+
+  &.open {
+    background-color: #bdbdbd;
+
+    &.mined {
+      background-color: darkred;
+      color: black;
+    }
+  }
+
+  &.one {
+    color: #1769aa;
+  }
+
+  &.two {
+    color: #357a38;
+  }
+
+  &.three {
+    color: #f44336;
+  }
+
+  &.four {
+    color: #673ab7;
+  }
+
+  &.five {
+    color: #ff9800;
+  }
+
+  &.six {
+    color: #009688;
+  }
+
+  &.seven {
+    color: #482880;
+  }
+
+  &.eight {
+    color: #35baf6;
+  }
+
+  &.flag {
+    color: darkred;
+  }
 }

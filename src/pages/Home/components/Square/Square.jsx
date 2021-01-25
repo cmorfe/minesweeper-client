@@ -1,7 +1,7 @@
 import React from 'react';
 
-const Square = ({id, display, onOpened}) => (
-  <div id={id} className={'square'} onClick={onOpened}>
+const Square = ({id, display, onOpened, classes}) => (
+  <div id={id} className={classes} onClick={onOpened}>
     {display}
   </div>
 )

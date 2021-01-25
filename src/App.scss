@@ -1,7 +1,6 @@
 .app {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     min-height: 500px;
     position: relative;
@@ -27,6 +26,13 @@
     }
 
     .container {
-        margin-top: 62px;
+        margin-top: 80px;
+        padding-left: 24px;
+        width: 100%;
+    }
+
+    .alert-message {
+        position: absolute;
+        top: 60px;
     }
 }

@@ -3,7 +3,7 @@ import AddIcon from '@material-ui/icons/Add';
 import "./BoardButton.scss";
 
 const BoardButton = ({board, onLoadGame, onOpenModal}) => (
-  <div className={'boardButton'}>
+  <div className={`boardButton ${!board ? 'new-game' : ''}`}>
     {
       !board
       ? <NewGame {...{onOpenModal}} />
@@ -15,12 +15,13 @@ const BoardButton = ({board, onLoadGame, onOpenModal}) => (
 const NewGame = ({onOpenModal}) => (
   <div className={'buttonContent'} onClick={onOpenModal}>
     <AddIcon />
+    <span className={'text'}>{'New Game'}</span>
   </div>
 );
 
 const LoadGame = ({board, onLoadGame}) => (
   <div className={'buttonContent'} onClick={() => onLoadGame(board.id)}>
-    <span>{`${board.length} x ${board.height} board`}</span>
+    <span>{`${board.length} x ${board.height}`}</span>
     <span>{`Mines: ${board.mines}`}</span>
     <span>{`Time: ${board.time}`}</span>
   </div>

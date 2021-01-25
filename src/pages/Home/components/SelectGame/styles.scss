@@ -1,16 +1,50 @@
 .select-game {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-left: 12px;
+
   .new-game-section {
     margin-bottom: 24px;
   }
 
   .load-games-section {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: column;
     width: 100%;
+
+    .saved-games {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+    }
 
     > * {
       margin-right: 12px;
+      margin-bottom: 12px;
+    }
+  }
+}
+
+.newGameModal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  background-color: white;
+  position: absolute;
+  top: 80px;
+  left: calc(50% - 150px);
+  padding: 24px;
+
+  .fields {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    > * {
       margin-bottom: 12px;
     }
   }

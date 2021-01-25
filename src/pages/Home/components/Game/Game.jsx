@@ -1,14 +1,21 @@
 import React from "react";
 import {Square} from '../'
 import {Button} from "@material-ui/core";
+import {Alert} from "@material-ui/lab";
 
 const Game = ({token, board, time, loadBoard, message, setSquare, onBack}) => (
   <div className={'game'}>
     <div className={'information'}>
-      <Button onClick={onBack}>
+      <Button onClick={onBack} variant={"contained"} color={"primary"}>
         Back
       </Button>
-      <div className={'message'}>{message}</div>
+      <div className={'message'}>
+        {
+          message
+            ? <Alert severity={"info"}>{message}</Alert>
+            : ''
+        }
+      </div>
       <div className={'timer'}>
         {`Time: ${time}`}
       </div>

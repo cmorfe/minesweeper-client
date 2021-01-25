@@ -1,12 +1,33 @@
-.board {
+.game {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  .squareRow {
+  .information {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 400px;
+
+    .timer {
+      border: 1px solid #3f51b5;
+      border-radius: 10px;
+      padding: 6px;
+    }
+  }
+  .board {
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 24px;
+    border: 3px solid black;
+
+    .squareRow {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
 }

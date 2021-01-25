@@ -31,7 +31,6 @@ const Container = ({token, setBoard, showSuccess, showError}) => {
 
     if (board) {
       setBoard(board);
-      showSuccess("Game created successfully.");
     } else {
       showError(errorMsg);
     }
@@ -42,7 +41,6 @@ const Container = ({token, setBoard, showSuccess, showError}) => {
 
     if (loadedBoard) {
       setBoard(loadedBoard);
-      showSuccess("Game loaded successfully.");
     } else {
       showError(errorMsg);
     }

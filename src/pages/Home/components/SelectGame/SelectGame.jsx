@@ -9,10 +9,15 @@ const SelectGame = ({boards, onNewGame, onLoadGame, isModalOpen, onOpenModal, on
     </div>
     <div className={'load-games-section'}>
       {
+        boards.length > 0 && <h3>{'Saved Games'}</h3>
+      }
+      <div className={'saved-games'}>
+      {
         boards.map(board => (
           <BoardButton key={board.id} {...{board, onLoadGame}} />
         ))
       }
+      </div>
     </div>
 
     <Modal

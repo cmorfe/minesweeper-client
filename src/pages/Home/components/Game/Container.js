@@ -31,6 +31,8 @@ const Container = ({token, board, setBoard, showError}) => {
       if (loadedBoard.gameState !== "ON") {
         setIsRunning(false);
         saveBoard();
+
+        setMessage(`You have ${loadedBoard.gameState} this game!`);
       }
     }
   }
