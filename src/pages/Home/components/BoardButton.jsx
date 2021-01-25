@@ -1,9 +1,11 @@
 import React from "react";
 import AddIcon from '@material-ui/icons/Add';
+import classnames from 'classnames';
+
 import "./BoardButton.scss";
 
 const BoardButton = ({board, onLoadGame, onOpenModal}) => (
-  <div className={`boardButton ${!board ? 'new-game' : ''}`}>
+  <div className={classnames({boardButton: true, 'new-game': !board})}>
     {
       !board
       ? <NewGame {...{onOpenModal}} />
