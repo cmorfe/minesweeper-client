@@ -44,7 +44,7 @@ export const getBoards = ({token}) => {
       }
     })
     .then((response) => response.data)
-    .then((data) => ({loadedBoards: data.content.map(serializeBoard)}))
+    .then((data) => ({loadedBoards: data.map(serializeBoard)}))
     .catch((error) => ({errorMsg: error.toJSON().message}));
 }
 
