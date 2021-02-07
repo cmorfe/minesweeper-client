@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:8000'
+const {API_URL} = process.env;
 
 export const ROUTES = {
     REGISTER: `${API_URL}/signin`,
