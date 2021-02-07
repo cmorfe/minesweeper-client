@@ -8,5 +8,5 @@ export const register = ({username, password}) => {
       {username, password}
     )
     .then(() => ({errorMsg: null}))
-    .catch((error) => ({errorMsg: error.response.data.message ?? error.toJSON().message}))
+    .catch((error) => ({errorMsg: error.response ? error.response.data.message : error.toJSON().message}));
 };
