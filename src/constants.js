@@ -1,4 +1,4 @@
-const {API_URL} = process.env;
+const API_URL = 'https://cmorfe-minesweeper-api.herokuapp.com'
 
 export const ROUTES = {
     REGISTER: `${API_URL}/signin`,

@@ -1,6 +1,3 @@
-setup:
-  config:
-    API_URL: https://cmorfe-minesweeper-api.herokuapp.com
 build:
   docker:
     web: Dockerfile
