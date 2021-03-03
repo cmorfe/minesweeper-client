@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:8000/api/v1';
+const API_URL = 'https://php-cmorfe-minesweeper-api.herokuapp.com/api/v1';
 
 export const ROUTES = {
     REGISTER: `${API_URL}/register`,
