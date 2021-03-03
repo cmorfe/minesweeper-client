@@ -23,7 +23,7 @@ const Game = ({token, board, time, loadBoard, message, setSquare, onBack}) => (
     <div className={'content'}>
       <div className={'board'}>
         {
-          board.gameSquares.map((squareRow, i) => (
+          board.game_squares.map((squareRow, i) => (
             <div className={'squareRow'} key={i}>
               {
                 squareRow.map((square, j) => (

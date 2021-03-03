@@ -47,7 +47,7 @@ const Container = ({ showSuccess, showError }) => {
             return;
         }
 
-        const { errorMsg } = await register({ username, password });
+        const { errorMsg } = await register({ username, password, validation });
 
         if (errorMsg) { 
             showError(errorMsg);

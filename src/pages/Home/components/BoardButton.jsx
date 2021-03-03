@@ -23,7 +23,7 @@ const NewGame = ({onOpenModal}) => (
 
 const LoadGame = ({board, onLoadGame}) => (
   <div className={'buttonContent'} onClick={() => onLoadGame(board.id)}>
-    <span>{`${board.length} x ${board.height}`}</span>
+    <span>{`${board.width} x ${board.height}`}</span>
     <span>{`Mines: ${board.mines}`}</span>
     <span>{`Time: ${board.time}`}</span>
   </div>

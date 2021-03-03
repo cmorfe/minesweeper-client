@@ -3,12 +3,12 @@ import {ROUTES} from "../../../constants";
 
 export const newGame = ({token, rows, columns, mines}) => {
   return axios
-    .post(ROUTES.NEW_GAME, {height: rows, length: columns, mines}, {
+    .post(ROUTES.NEW_GAME, {height: rows, width: columns, mines}, {
       headers: {
-        Authorization: token
+        Authorization: "Bearer " + token
       }
     })
-    .then((response) => response.data)
+    .then((response) => response.data.data)
     .then((data) => ({board: serializeBoard(data)}))
     .catch((error) => ({errorMsg: error.toJSON().message}));
 };
@@ -17,19 +17,19 @@ export const loadGame = ({token, boardId}) => {
   return axios
     .get(ROUTES.LOAD_GAME(boardId), {
       headers: {
-        Authorization: token
+        Authorization: "Bearer " + token
       }
     })
-    .then((response) => response.data)
+    .then((response) => response.data.data)
     .then((data) => ({loadedBoard: serializeBoard(data)}))
     .catch((error) => ({errorMsg: error.toJSON().message}));
 };
 
 export const saveGame = ({token, boardId, time}) => {
   return axios
-    .post(ROUTES.SAVE_GAME(boardId), {time}, {
+    .put(ROUTES.SAVE_GAME(boardId), {time}, {
       headers: {
-        Authorization: token
+        Authorization: "Bearer " + token
       }
     })
     .then(() => ({}))
@@ -40,22 +40,22 @@ export const getBoards = ({token}) => {
   return axios
     .get(ROUTES.LOAD_GAMES, {
       headers: {
-        Authorization: token
+        Authorization: "Bearer  " + token
       }
     })
-    .then((response) => response.data)
+    .then((response) => response.data.data)
     .then((data) => ({loadedBoards: data.map(serializeBoard)}))
-    .catch((error) => ({errorMsg: error.toJSON().message}));
+    .catch((error) => ({errorMsg: console.log(error)}));
 }
 
 export const markSquare = ({token, boardId, squareId}) => {
   return axios
     .post(ROUTES.MARK_SQUARE(boardId, squareId), {}, {
       headers: {
-        Authorization: token
+        Authorization: "Bearer " + token
       }
     })
-    .then((response) => response.data)
+    .then((response) => response.data.data)
     .then((data) => ({loadedSquare: data}))
     .catch((error) => ({errorMsg: error.toJSON().message}));
 }
@@ -64,10 +64,10 @@ export const openSquare = ({token, boardId, squareId}) => {
   return axios
     .post(ROUTES.OPEN_SQUARE(boardId, squareId), {}, {
       headers: {
-        Authorization: token
+        Authorization: "Bearer " + token
       }
     })
-    .then((response) => response.data)
+    .then((response) => response.data.data)
     .then((data) => ({loadedSquare: data}))
     .catch((error) => ({errorMsg: error.toJSON().message}));
 }

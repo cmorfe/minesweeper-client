@@ -28,11 +28,11 @@ const Container = ({token, board, setBoard, showError}) => {
       showError(errorMsg);
     } else {
       setBoard(loadedBoard);
-      if (loadedBoard.gameState !== "ON") {
+      if (loadedBoard.game_state !== "ON") {
         setIsRunning(false);
         saveBoard();
 
-        setMessage(`You have ${loadedBoard.gameState} this game!`);
+        setMessage(`You have ${loadedBoard.game_state} this game!`);
       }
     }
   }
@@ -46,12 +46,12 @@ const Container = ({token, board, setBoard, showError}) => {
   }
 
   const setSquare = (square) => {
-    let squares = [...board.gameSquares];
+    let squares = [...board.game_squares];
     squares[square.x][square.y] = square;
 
     setBoard({
       ...board,
-      gameSquares: squares
+      game_squares: squares
     });
   }
 

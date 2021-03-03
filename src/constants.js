@@ -1,7 +1,7 @@
-const API_URL = 'https://cmorfe-minesweeper-api.herokuapp.com'
+const API_URL = 'https://php-cmorfe-minesweeper-api.herokuapp.com/api/v1';
 
 export const ROUTES = {
-    REGISTER: `${API_URL}/signin`,
+    REGISTER: `${API_URL}/register`,
     LOGIN: `${API_URL}/login`,
     NEW_GAME: `${API_URL}/boards`,
     LOAD_GAME: (id) => `${API_URL}/boards/${id}`,
