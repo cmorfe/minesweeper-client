@@ -1,7 +1,7 @@
-const {API_URL} = process.env;
+const API_URL = 'http://localhost:8000/api/v1';
 
 export const ROUTES = {
-    REGISTER: `${API_URL}/signin`,
+    REGISTER: `${API_URL}/register`,
     LOGIN: `${API_URL}/login`,
     NEW_GAME: `${API_URL}/boards`,
     LOAD_GAME: (id) => `${API_URL}/boards/${id}`,
