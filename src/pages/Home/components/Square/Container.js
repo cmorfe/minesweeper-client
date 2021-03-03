@@ -12,14 +12,14 @@ const Container = ({token, boardId, square, loadBoard, setSquare}) => {
     square: true,
     open: square.open,
     mined: square.mined,
-    one: square.adjacents === 1,
-    two: square.adjacents === 2,
-    three: square.adjacents === 3,
-    four: square.adjacents === 4,
-    five: square.adjacents === 5,
-    six: square.adjacents === 6,
-    seven: square.adjacents === 7,
-    eight: square.adjacents === 8,
+    one: square.adjacent_mines_count === 1,
+    two: square.adjacent_mines_count === 2,
+    three: square.adjacent_mines_count === 3,
+    four: square.adjacent_mines_count === 4,
+    five: square.adjacent_mines_count === 5,
+    six: square.adjacent_mines_count === 6,
+    seven: square.adjacent_mines_count === 7,
+    eight: square.adjacent_mines_count === 8,
     flag: square.mark === 'FLAG'
   }))
 
@@ -36,8 +36,8 @@ const Container = ({token, boardId, square, loadBoard, setSquare}) => {
       return <BrightnessHighIcon />
     }
 
-    if (square.adjacents > 0) {
-      return <span>{square.adjacents}</span>
+    if (square.adjacent_mines_count > 0) {
+      return <span>{square.adjacent_mines_count}</span>
     }
   }
 
@@ -69,7 +69,7 @@ const Container = ({token, boardId, square, loadBoard, setSquare}) => {
     const {loadedSquare, errorMsg} = await openSquare({token, boardId, squareId: square.id});
 
     if (loadedSquare) {
-      if (loadedSquare.shouldReload) {
+      if (loadedSquare.should_reload) {
         loadBoard();
       } else {
         setSquare(loadedSquare);
