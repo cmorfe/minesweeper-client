@@ -5,7 +5,7 @@ import Register from './Register';
 
 import './styles.scss';
 
-const Container = ({ showSuccess, showError }) => {
+const Container = ({ changeToken, showSuccess, showError }) => {
     let history = useHistory();
 
     const [username, setUsername] = useState('');
@@ -47,14 +47,14 @@ const Container = ({ showSuccess, showError }) => {
             return;
         }
 
-        const { errorMsg } = await register({ username, password, validation });
+        const { token, errorMsg } = await register({ username, password, validation });
 
-        if (errorMsg) { 
-            showError(errorMsg);
-        }
-        else {
+        if (token) {
             showSuccess('User created successfully');
-            onGoToLogin();
+            changeToken(token);
+            history.push('/');
+        } else {
+            showError(errorMsg);
         }
     };
 

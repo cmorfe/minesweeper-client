@@ -7,6 +7,7 @@ export const register = ({username, password, validation}) => {
       ROUTES.REGISTER,
       {username, password, password_confirmation: validation}
     )
-    .then(() => ({errorMsg: null}))
+      .then((response) => response.data.data)
+      .then((data) => ({token: data.access_token}))
     .catch((error) => ({errorMsg: error.response ? error.response.data.message : error.toJSON().message}));
 };

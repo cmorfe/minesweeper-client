@@ -72,7 +72,7 @@ const App = () => {
               {
                 token
                   ? <Redirect to={"/"}/>
-                  : <Register {...{showSuccess, showError}} />
+                  : <Register {...{changeToken, showSuccess, showError}} />
               }
             </Route>
             <Route exact path="/">

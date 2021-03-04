@@ -45,7 +45,7 @@ export const getBoards = ({token}) => {
     })
     .then((response) => response.data.data)
     .then((data) => ({loadedBoards: data.map(serializeBoard)}))
-    .catch((error) => ({errorMsg: console.log(error)}));
+    .catch((error) => ({errorMsg: error.toJSON().message}));
 }
 
 export const markSquare = ({token, boardId, squareId}) => {
@@ -75,5 +75,5 @@ export const openSquare = ({token, boardId, squareId}) => {
 const serializeBoard = (board) => ({
   ...board,
   rows: board.height,
-  columns: board.length,
+  columns: board.width,
 });

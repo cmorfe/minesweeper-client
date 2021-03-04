@@ -27,7 +27,7 @@ const Game = ({token, board, time, loadBoard, message, setSquare, onBack}) => (
             <div className={'squareRow'} key={i}>
               {
                 squareRow.map((square, j) => (
-                  <Square key={`${i}-${j}`} {...{token, square, loadBoard, setSquare, boardId: board.id}} />
+                  <Square key={`${j}-${i}`} {...{token, square, loadBoard, setSquare, boardId: board.id}} />
                 ))
               }
             </div>

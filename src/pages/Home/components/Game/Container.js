@@ -47,7 +47,7 @@ const Container = ({token, board, setBoard, showError}) => {
 
   const setSquare = (square) => {
     let squares = [...board.game_squares];
-    squares[square.x][square.y] = square;
+    squares[square.y][square.x] = square;
 
     setBoard({
       ...board,
