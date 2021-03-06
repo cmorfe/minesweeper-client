@@ -1,4 +1,4 @@
-const API_URL = 'https://php-cmorfe-minesweeper-api.herokuapp.com/api/v1';
+const API_URL = process.env.REACT_APP_API_URL;
 
 export const ROUTES = {
     REGISTER: `${API_URL}/register`,

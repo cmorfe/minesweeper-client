@@ -58,7 +58,7 @@ const Container = ({token, boardId, square, loadBoard, setSquare}) => {
   const onMarked = async (e) => {
     e.preventDefault();
 
-    const {loadedSquare, errorMsg} = await markSquare({token, boardId, squareId: square.id});
+    const {loadedSquare} = await markSquare({token, boardId, squareId: square.id});
 
     if (loadedSquare) {
         setSquare(loadedSquare);
@@ -66,7 +66,7 @@ const Container = ({token, boardId, square, loadBoard, setSquare}) => {
   }
 
   const onOpened = async () => {
-    const {loadedSquare, errorMsg} = await openSquare({token, boardId, squareId: square.id});
+    const {loadedSquare} = await openSquare({token, boardId, squareId: square.id});
 
     if (loadedSquare) {
       if (loadedSquare.should_reload) {
