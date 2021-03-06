@@ -42,7 +42,7 @@ const App = () => {
       <div className="app">
         <div className="navbar">
           <div>
-            <Typography variant="h6">{process.env}</Typography>
+            <Typography variant="h6">{"Minesweeper"}</Typography>
           </div>
           <div>
             <Link
