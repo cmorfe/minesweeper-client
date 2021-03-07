@@ -11,21 +11,21 @@ import {useCookies} from "react-cookie";
 const App = () => {
   const [token, setToken] = useState(null);
   const [message, setMessage] = useState(null);
-  const [cookies, setCookie, removeCookie] = useCookies(['token']);
+  const [cookies, setCookie, removeCookie] = useCookies(["token"]);
 
   useEffect(() => {
-    setToken(cookies['token']);
+    setToken(cookies["token"]);
   }, []);
 
   const changeToken = (value) => {
     setToken(value);
 
     if (value) {
-      setCookie('token', value);
+      setCookie("token", value);
     } else {
-      removeCookie('token');
+      removeCookie("token");
     }
-  }
+  };
 
   const showSuccess = (msg) => {
     setMessage({type: "success", value: msg});
@@ -56,10 +56,10 @@ const App = () => {
         </div>
         {
           message !== null
-            ? <Alert className={'alert-message'} severity={message.type}>{message.value}</Alert>
+            ? <Alert className={"alert-message"} severity={message.type}>{message.value}</Alert>
             : <></>
         }
-        <div className={'container'}>
+        <div className={"container"}>
           <Switch>
             <Route path="/login">
               {

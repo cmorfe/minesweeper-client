@@ -1,9 +1,9 @@
 import React, {useEffect} from "react";
-import {openSquare, markSquare} from "../actions";
+import {markSquare, openSquare} from "../actions";
 import Square from "./Square";
-import classnames from 'classnames';
-import BrightnessHighIcon from '@material-ui/icons/BrightnessHigh';
-import FlagIcon from '@material-ui/icons/Flag';
+import classnames from "classnames";
+import BrightnessHighIcon from "@material-ui/icons/BrightnessHigh";
+import FlagIcon from "@material-ui/icons/Flag";
 
 import "./styles.scss";
 
@@ -20,40 +20,26 @@ const Container = ({token, boardId, square, loadBoard, setSquare}) => {
     six: square.adjacent_mines_count === 6,
     seven: square.adjacent_mines_count === 7,
     eight: square.adjacent_mines_count === 8,
-    flag: square.mark === 'FLAG'
-  }))
+    flag: square.mark === "FLAG"
+  }));
 
   const display = () => {
-    if (square.mark === 'FLAG') {
-      return <FlagIcon />
+    if (square.mark === "FLAG") {
+      return <FlagIcon/>;
     }
 
-    if (square.mark === 'QUESTION' && !square.open) {
-      return <span>?</span>
+    if (square.mark === "QUESTION" && !square.open) {
+      return <span>?</span>;
     }
 
     if (square.mined) {
-      return <BrightnessHighIcon />
+      return <BrightnessHighIcon/>;
     }
 
     if (square.adjacent_mines_count > 0) {
-      return <span>{square.adjacent_mines_count}</span>
+      return <span>{square.adjacent_mines_count}</span>;
     }
-  }
-
-  useEffect(() => {
-    const node = document.getElementById(`square-${square.id}`);
-    if (node) {
-      node.addEventListener('contextmenu', onMarked);
-    }
-
-    return () => {
-      const node = document.getElementById(`square-${square.id}`);
-      if (node) {
-        node.removeEventListener('contextmenu', onMarked);
-      }
-    }
-  })
+  };
 
   const onMarked = async (e) => {
     e.preventDefault();
@@ -61,9 +47,23 @@ const Container = ({token, boardId, square, loadBoard, setSquare}) => {
     const {loadedSquare} = await markSquare({token, boardId, squareId: square.id});
 
     if (loadedSquare) {
-        setSquare(loadedSquare);
+      setSquare(loadedSquare);
     }
-  }
+  };
+
+  useEffect(() => {
+    const node = document.getElementById(`square-${square.id}`);
+    if (node) {
+      node.addEventListener("contextmenu", onMarked);
+    }
+
+    return () => {
+      const node = document.getElementById(`square-${square.id}`);
+      if (node) {
+        node.removeEventListener("contextmenu", onMarked);
+      }
+    };
+  });
 
   const onOpened = async () => {
     const {loadedSquare} = await openSquare({token, boardId, squareId: square.id});
@@ -75,9 +75,9 @@ const Container = ({token, boardId, square, loadBoard, setSquare}) => {
         setSquare(loadedSquare);
       }
     }
-  }
+  };
 
-  return <Square {...{id: `square-${square.id}`, display: display(), onMarked, onOpened, classes: getClasses()}} />
-}
+  return <Square {...{id: `square-${square.id}`, display: display(), onMarked, onOpened, classes: getClasses()}} />;
+};
 
 export default Container;
