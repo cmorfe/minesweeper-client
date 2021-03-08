@@ -1,70 +1,70 @@
-import React, {useEffect, useState} from "react";
-import {loadGame, saveGame} from "../actions";
-import Game from "./Game";
+import React, { useEffect, useState } from 'react'
+import { loadGame, saveGame } from '../actions'
+import Game from './Game'
 
-import "./styles.scss";
+import './styles.scss'
 
-const Container = ({token, board, setBoard, showError}) => {
-  const [time, setTime] = useState(board.time);
-  const [isRunning, setIsRunning] = useState(true);
-  const [message, setMessage] = useState("");
+const Container = ({ token, board, setBoard, showError }) => {
+  const [time, setTime] = useState(board.time)
+  const [isRunning, setIsRunning] = useState(true)
+  const [message, setMessage] = useState('')
 
   useEffect(() => {
-    let interval = null;
+    let interval = null
 
     if (isRunning) {
       interval = setInterval(() => {
-        setTime(time + 1);
-      }, 1000);
+        setTime(time + 1)
+      }, 1000)
     } else {
-      clearInterval(interval);
+      clearInterval(interval)
     }
 
-    return () => clearInterval(interval);
-  }, [isRunning, time]);
+    return () => clearInterval(interval)
+  }, [isRunning, time])
 
   const saveBoard = async () => {
-    const {errorMsg} = await saveGame({token, time, boardId: board.id});
+    const { errorMsg } = await saveGame({ token, time, boardId: board.id })
 
     if (errorMsg) {
-      showError(errorMsg);
+      showError(errorMsg)
     }
-  };
+  }
 
   const loadBoard = async () => {
-    const {loadedBoard, errorMsg} = await loadGame({token, boardId: board.id});
+    const { loadedBoard, errorMsg } = await loadGame({ token, boardId: board.id })
 
     if (errorMsg) {
-      showError(errorMsg);
+      showError(errorMsg)
     } else {
-      setBoard(loadedBoard);
+      setBoard(loadedBoard)
 
-      if (loadedBoard.game_state !== "ON") {
-        setIsRunning(false);
+      if (loadedBoard.game_state !== 'ON') {
+        setIsRunning(false)
 
-        await saveBoard();
+        await saveBoard()
 
-        setMessage(`You have ${loadedBoard.game_state} this game!`);
+        setMessage(`You have ${loadedBoard.game_state} this game!`)
       }
     }
-  };
+  }
 
   const setSquare = (square) => {
-    const squares = [...board.game_squares];
+    const squares = [...board.game_squares]
 
-    squares[square.y][square.x] = square;
+    squares[square.y][square.x] = square
 
     setBoard({
       ...board,
       game_squares: squares
-    });
-  };
+    })
+  }
 
   const onBack = () => {
-    saveBoard().then(() => setBoard(null));
-  };
+    saveBoard().then(() => setBoard(null))
+  }
 
-  return <Game {...{token, board, time, loadBoard, message, setSquare, onBack}} />;
-};
+  return <Game {...{ token, board, time, loadBoard, message, setSquare, onBack }} />
+}
 
-export default Container;
+export default Container

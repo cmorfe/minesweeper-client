@@ -1,74 +1,37 @@
-import axios from "axios";
-import {ROUTES} from "../../../constants";
+import axios from 'axios'
+import { ROUTES } from '../../../constants'
 
-const serializeBoard = (board) => (board);
+export const newGame = ({ token, height, width, mines }) =>
+  axios
+    .post(ROUTES.NEW_GAME, { height, width, mines }, { headers: { Authorization: `Bearer ${token}` } })
+    .then(response => ({ board: response.data.data }))
+    .catch(error => ({ errorMsg: error.toJSON().message }))
 
-export const newGame = ({token, rows, columns, mines}) => {
-  return axios
-    .post(ROUTES.NEW_GAME, {height: rows, width: columns, mines}, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-    .then((response) => response.data.data)
-    .then((data) => ({board: serializeBoard(data)}))
-    .catch((error) => ({errorMsg: error.toJSON().message}));
-};
+export const loadGame = ({ token, boardId }) =>
+  axios
+    .get(ROUTES.LOAD_GAME(boardId), { headers: { Authorization: `Bearer ${token}` } })
+    .then(response => ({ loadedBoard: response.data.data }))
+    .catch(error => ({ errorMsg: error.toJSON().message }))
 
-export const loadGame = ({token, boardId}) => {
-  return axios
-    .get(ROUTES.LOAD_GAME(boardId), {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-    .then((response) => response.data.data)
-    .then((data) => ({loadedBoard: serializeBoard(data)}))
-    .catch((error) => ({errorMsg: error.toJSON().message}));
-};
+export const saveGame = ({ token, boardId, time }) =>
+  axios
+    .put(ROUTES.SAVE_GAME(boardId), { time }, { headers: { Authorization: `Bearer ${token}` } })
+    .catch(error => ({ errorMsg: error.toJSON().message }))
 
-export const saveGame = ({token, boardId, time}) => {
-  return axios
-    .put(ROUTES.SAVE_GAME(boardId), {time}, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-    .then(() => ({}))
-    .catch((error) => ({errorMsg: error.toJSON().message}));
-};
+export const getBoards = ({ token }) =>
+  axios
+    .get(ROUTES.LOAD_GAMES, { headers: { Authorization: `Bearer  ${token}` } })
+    .then(response => ({ loadedBoards: response.data.data }))
+    .catch(error => ({ errorMsg: error.toJSON().message }))
 
-export const getBoards = ({token}) => {
-  return axios
-    .get(ROUTES.LOAD_GAMES, {
-      headers: {
-        Authorization: `Bearer  ${token}`
-      }
-    })
-    .then((response) => ({loadedBoards: response.data.data}))
-    .catch((error) => ({errorMsg: error.toJSON().message}));
-};
+export const markSquare = ({ token, boardId, squareId }) =>
+  axios
+    .post(ROUTES.MARK_SQUARE(boardId, squareId), {}, { headers: { Authorization: `Bearer ${token}` } })
+    .then(response => ({ loadedSquare: response.data.data }))
+    .catch(error => ({ errorMsg: error.toJSON().message }))
 
-export const markSquare = ({token, boardId, squareId}) => {
-  return axios
-    .post(ROUTES.MARK_SQUARE(boardId, squareId), {}, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-    .then((response) => response.data.data)
-    .then((data) => ({loadedSquare: data}))
-    .catch((error) => ({errorMsg: error.toJSON().message}));
-};
-
-export const openSquare = ({token, boardId, squareId}) => {
-  return axios
-    .post(ROUTES.OPEN_SQUARE(boardId, squareId), {}, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-    .then((response) => response.data.data)
-    .then((data) => ({loadedSquare: data}))
-    .catch((error) => ({errorMsg: error.toJSON().message}));
-};
+export const openSquare = ({ token, boardId, squareId }) =>
+  axios
+    .post(ROUTES.OPEN_SQUARE(boardId, squareId), {}, { headers: { Authorization: `Bearer ${token}` } })
+    .then(response => ({ loadedSquare: response.data.data }))
+    .catch(error => ({ errorMsg: error.toJSON().message }))

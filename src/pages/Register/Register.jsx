@@ -1,22 +1,22 @@
-import React from "react";
-import { TextField, Button } from "@material-ui/core";
+import React from 'react'
+import { Button, TextField } from '@material-ui/core'
 
 const Register = ({ fields, onSubmit, onGoToLogin }) => (
   <div className="register-page">
     <div className="form">
       <TextField {...fields.username} />
       <TextField {...fields.password} />
-      <TextField {...fields.validation} />
+      <TextField {...fields.passwordConfirmation} />
     </div>
     <div className="buttons">
       <Button onClick={onSubmit} color="primary" variant="contained">
-        {"Register"}
+        {'Register'}
       </Button>
       <Button onClick={onGoToLogin} variant="contained">
-        {"Login"}
+        {'Login'}
       </Button>
     </div>
   </div>
-);
+)
 
-export default Register;
+export default Register
