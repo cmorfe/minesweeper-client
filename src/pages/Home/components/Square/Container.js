@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { markSquare, openSquare } from '../actions'
+import { markSquare, openSquare } from 'minesweeper-api-client'
 import Square from './Square'
 import classnames from 'classnames'
 import BrightnessHighIcon from '@material-ui/icons/BrightnessHigh'

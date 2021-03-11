@@ -1,28 +1,33 @@
 import React, { useEffect, useState } from 'react'
-import { getBoards, loadGame, newGame } from '../actions'
+import { getBoards, loadGame, newGame } from 'minesweeper-api-client'
 import SelectGame from './SelectGame'
 
 import './styles.scss'
 
 const Container = ({ token, setBoard, showError }) => {
   const [boards, setBoards] = useState([])
-  const [height, setHeight] = useState(10)
-  const [width, setWidth] = useState(10)
-  const [mines, setMines] = useState(20)
+  const [height, setHeight] = useState(6)
+  const [width, setWidth] = useState(7)
+  const [mines, setMines] = useState(8)
+
+  const [heightValidationError, setHeightValidationError] = useState(false)
+  const [widthValidationError, setWidthValidationError] = useState(false)
+  const [minesValidationError, setMinesValidationError] = useState(false)
+
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const loadGames = async () => {
-    const { loadedBoards, errorMsg } = await getBoards({ token })
+    const { loadedBoards, message } = await getBoards({ token })
 
     if (loadedBoards) {
       setBoards(loadedBoards)
     } else {
-      showError(errorMsg)
+      showError(message)
     }
   }
 
   useEffect(() => {
-    loadGames()
+    loadGames().then(() => {})
   }, [])
 
   const onHeightChange = (e) => setHeight(e.target.value)
@@ -32,61 +37,41 @@ const Container = ({ token, setBoard, showError }) => {
   const onOpenModal = () => setIsModalOpen(true)
   const onCloseModal = () => setIsModalOpen(false)
 
-  const validateFields = () => {
-    if (height < 2) {
-      showError('Number of rows must be at least 2.')
-      return false
-    }
-
-    if (height > 20) {
-      showError('Number of rows must be less than 20.')
-      return false
-    }
-
-    if (width < 2) {
-      showError('Number of columns must be at least 2.')
-      return false
-    }
-
-    if (width > 20) {
-      showError('Number of columns must be less than 20.')
-      return false
-    }
-
-    if (mines < 2) {
-      showError('Number of mines must be at least 2.')
-      return false
-    }
-
-    if (mines >= height * width) {
-      showError(`Number of mines must be less than ${height * width}.`)
-      return false
-    }
-
-    return true
-  }
-
   const onNewGame = async () => {
-    if (!validateFields()) {
-      return
-    }
-
-    const { board, errorMsg } = await newGame({ token, height, width, mines })
+    const { board, message, errors } = await newGame({ token, height, width, mines })
 
     if (board) {
       setBoard(board)
+    } else if (errors) {
+      if (errors.mines) {
+        setMinesValidationError(true)
+
+        showError(errors.mines[0])
+      }
+
+      if (errors.width) {
+        setWidthValidationError(true)
+
+        showError(errors.width[0])
+      }
+
+      if (errors.height) {
+        setHeightValidationError(true)
+
+        showError(errors.height[0])
+      }
     } else {
-      showError(errorMsg)
+      showError(message)
     }
   }
 
   const onLoadGame = async (boardId) => {
-    const { loadedBoard, errorMsg } = await loadGame({ token, boardId })
+    const { loadedBoard, message } = await loadGame({ token, boardId })
 
     if (loadedBoard) {
       setBoard(loadedBoard)
     } else {
-      showError(errorMsg)
+      showError(message)
     }
   }
 
@@ -96,21 +81,24 @@ const Container = ({ token, setBoard, showError }) => {
       type: 'number',
       value: height,
       placeholder: '# of rows',
-      onChange: onHeightChange
+      onChange: onHeightChange,
+      error: heightValidationError
     },
     width: {
       label: 'Columns',
       type: 'number',
       value: width,
       placeholder: '# of columns',
-      onChange: onWidthChange
+      onChange: onWidthChange,
+      error: widthValidationError
     },
     mines: {
       label: 'Mines',
       type: 'number',
       value: mines,
       placeholder: '# of mines',
-      onChange: onMinesChange
+      onChange: onMinesChange,
+      error: minesValidationError
     }
   }
 

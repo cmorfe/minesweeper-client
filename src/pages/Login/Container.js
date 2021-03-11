@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { login } from './actions'
+import { login } from 'minesweeper-api-client'
 import Login from './Login'
 
 import './styles.scss'
@@ -11,18 +11,36 @@ const Container = ({ changeToken, showError }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
+  const [usernameValidationError, setUsernameValidationError] = useState(false)
+  const [passwordValidationError, setPasswordValidationError] = useState(false)
+
   const onUsernameChange = (e) => setUsername(e.target.value)
   const onPasswordChange = (e) => setPassword(e.target.value)
 
   const onSubmit = async () => {
-    const { token, errorMsg } = await login({ username, password })
+    const { token, message, errors } = await login({ username, password })
+
     if (token) {
       changeToken(token)
+
       history.push('/')
+    } else if (errors) {
+      if (errors.password) {
+        setPasswordValidationError(true)
+
+        showError(errors.password[0])
+      }
+
+      if (errors.username) {
+        setUsernameValidationError(true)
+
+        showError(errors.username[0])
+      }
     } else {
-      showError(errorMsg)
+      showError(message)
     }
   }
+
   const onGoToRegister = () => history.push('/register')
 
   const fields = {
@@ -30,14 +48,16 @@ const Container = ({ changeToken, showError }) => {
       label: 'Username',
       value: username,
       placeholder: 'Username',
-      onChange: onUsernameChange
+      onChange: onUsernameChange,
+      error: usernameValidationError
     },
     password: {
       type: 'password',
       label: 'Password',
       value: password,
       placeholder: 'Password',
-      onChange: onPasswordChange
+      onChange: onPasswordChange,
+      error: passwordValidationError
     }
   }
 

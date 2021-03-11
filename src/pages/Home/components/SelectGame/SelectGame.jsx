@@ -7,6 +7,7 @@ const SelectGame = ({ boards, onNewGame, onLoadGame, isModalOpen, onOpenModal, o
     <div className={'new-game-section'}>
       <BoardButton {...{ onNewGame, onOpenModal }} />
     </div>
+
     <div className={'load-games-section'}>
       {
         boards.length > 0 && <h3>{'Saved Games'}</h3>

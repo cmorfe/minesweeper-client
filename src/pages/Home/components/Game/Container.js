@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { loadGame, saveGame } from '../actions'
+import { loadGame, saveGame } from 'minesweeper-api-client'
 import Game from './Game'
 
 import './styles.scss'
@@ -24,18 +24,20 @@ const Container = ({ token, board, setBoard, showError }) => {
   }, [isRunning, time])
 
   const saveBoard = async () => {
-    const { errorMsg } = await saveGame({ token, time, boardId: board.id })
+    const { message, errors } = await saveGame({ token, time, boardId: board.id })
 
-    if (errorMsg) {
-      showError(errorMsg)
+    if (errors) {
+      showError(errors.time[0])
+    } else if (message) {
+      showError(message)
     }
   }
 
   const loadBoard = async () => {
-    const { loadedBoard, errorMsg } = await loadGame({ token, boardId: board.id })
+    const { loadedBoard, message } = await loadGame({ token, boardId: board.id })
 
-    if (errorMsg) {
-      showError(errorMsg)
+    if (message) {
+      showError(message)
     } else {
       setBoard(loadedBoard)
 
@@ -60,8 +62,10 @@ const Container = ({ token, board, setBoard, showError }) => {
     })
   }
 
-  const onBack = () => {
-    saveBoard().then(() => setBoard(null))
+  const onBack = async () => {
+    await saveBoard()
+
+    setBoard(null)
   }
 
   return <Game {...{ token, board, time, loadBoard, message, setSquare, onBack }} />

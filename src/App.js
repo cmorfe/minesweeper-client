@@ -7,6 +7,7 @@ import { Home, Login, Register } from './pages'
 
 import './App.scss'
 import { useCookies } from 'react-cookie'
+import { logout } from 'minesweeper-api-client'
 
 const App = () => {
   const [token, setToken] = useState(null)
@@ -17,14 +18,16 @@ const App = () => {
     setToken(cookies['token'])
   }, [])
 
-  const changeToken = (value) => {
-    setToken(value)
-
+  const changeToken = async (value) => {
     if (value) {
       setCookie('token', value)
     } else {
+      await logout({ token })
+
       removeCookie('token')
     }
+
+    setToken(value)
   }
 
   const showSuccess = (msg) => {
